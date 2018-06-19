@@ -55,6 +55,7 @@ public class BillingService {
 			
 		}
 		
+		billDAO.setProducts(productList);
 		billDAO.setProductsNumber(productsNumber);
 		billDAO.setTotalCost(totalCost);
 		billDAO.setTotalTax(totalTax);
@@ -82,10 +83,20 @@ public class BillingService {
 		return taxValue;
 	}
 
-	public BillDAO getBillById(String id) {
-		BillDAO billDAO = billRepository.findOne(id);
+	public BillDAO getBillById(Long id) {
+		BillDAO billDAO = billRepository.findById(id);
 		
 		return billDAO;
+	}
+
+	public List<BillDAO> getBills() {
+		
+		List<BillDAO> bills = (List<BillDAO>) billRepository.findAll();
+		return bills;
+	}
+
+	public void removeBills() {
+			billRepository.deleteAll();
 	}
 	
 

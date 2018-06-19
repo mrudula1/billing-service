@@ -4,8 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 
 @Entity
@@ -19,8 +22,10 @@ public class ProductDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+	@SequenceGenerator(name = "id_Sequence", sequenceName = "ORACLE_DB_SEQ_ID")
 	@Column(name = "PRODUCT_ID",nullable = false, updatable = false, unique = true)
-	private int id;
+	private Long id;
 	
 	@Column(name = "PRODUCT_NAME")
 	private String productName;
@@ -31,11 +36,11 @@ public class ProductDAO implements Serializable {
 	@Column(name = "PRODUCT_RATE")
 	private double rate;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

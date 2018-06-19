@@ -30,7 +30,7 @@ public class BillingObjectConvertor {
 			
 			productsRep.add(prod);
 		}
-		//bill.setProducts(billDAO.getProducts());
+		bill.setProducts(productsRep);
 		bill.setProductsNumber(billDAO.getProductsNumber());
 		bill.setTotalCost(billDAO.getTotalCost());
 		bill.setTotalTax(billDAO.getTotalTax());

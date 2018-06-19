@@ -18,7 +18,7 @@ public class Bill implements Serializable{
 	public static final String MEDIA_TYPE_JSON_VALUE = MEDIA_TYPE_BASE_VALUE + "+json";
 	
 	@JsonProperty
-	private String id;
+	private Long id;
 	
 	@JsonProperty
 	private int productsNumber;
@@ -35,11 +35,11 @@ public class Bill implements Serializable{
 	@JsonProperty
 	private List<Product> products;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

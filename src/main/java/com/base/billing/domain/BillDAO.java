@@ -8,11 +8,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.GeneratedValue;
 
 
 @Entity
@@ -26,8 +29,10 @@ public class BillDAO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence")
+	@SequenceGenerator(name = "id_Sequence", sequenceName = "ORACLE_DB_SEQ_ID")
 	@Column(name = "BILL_ID", nullable = false, updatable = false, unique = true)
-	private String id;
+	private Long id;
 	
 	@Column(name = "PRODUCT_NUMBER")
 	private int productsNumber;
@@ -44,11 +49,11 @@ public class BillDAO implements Serializable {
 	@OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = (CascadeType.ALL))
 	private List<ProductDAO> products = new ArrayList<ProductDAO>();
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

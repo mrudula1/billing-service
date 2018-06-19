@@ -1,12 +1,16 @@
 package com.base.billing;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +33,10 @@ public class BillingController {
 	
 	
 	
-	@RequestMapping(value = "/bill", method = RequestMethod.POST)
+	@RequestMapping(value = "/bill",
+			consumes={"application/vnd.base.bill.request+json"},
+			produces={"application/vnd.base.bill+json",MediaType.APPLICATION_JSON_VALUE},
+			method = RequestMethod.POST)
 	public ResponseEntity<Bill> createBill(@Valid @RequestBody BillRequest billRequest, BindingResult bindingResult){
 		
 		if(bindingResult != null){
@@ -62,8 +69,8 @@ public class BillingController {
 	}
 	
        
-    @RequestMapping("/getBillByid")
-    public ResponseEntity<Bill> findById(@RequestParam("id") String id){
+    @RequestMapping("/getBillById/{id}")
+    public ResponseEntity<Bill> findById(@PathVariable("id") Long id){
 
     	BillDAO billDAO = billingService.getBillById(id);
 		
@@ -71,6 +78,22 @@ public class BillingController {
 		HttpHeaders headers = new HttpHeaders();
 		
 		return new ResponseEntity<Bill>(bill, headers, HttpStatus.CREATED);
+    }
+    
+    @RequestMapping("/getBills")
+    public List<BillDAO> getAllBills(){
+    	
+    	List<BillDAO> billDAO = billingService.getBills();
+    	
+    	return billDAO;
+    }
+    
+    @RequestMapping("/removeAllBills")
+    public String removeAllBills(){
+    	
+    	billingService.removeBills();
+    	
+    	return "Done";
     }
 
 }

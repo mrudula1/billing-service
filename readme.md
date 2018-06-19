@@ -9,23 +9,36 @@ Sales tax varies based on the type of products
 
 == Solution ==
 
-POST method /bill with list of products as request e.g.;
+POST method 
+URL : http://localhost:8080/billing/bill
+Content-Type : application/vnd.base.bill.request+json
+Accept : application/vnd.base.bill+json
+Request Body 
 {
-	{
-		"productName" : "Oil",
-		"productCategory" : "A",
-		"rate" : 50.55
-	},
-	{
-		"productName" : "milk",
-		"productCategory" : "B",
-		"rate" : 20.3
-	},
-	{
-		"productName" : "suger",
-		"productCategory" : "c",
-		"rate" : 20
-	}
+	"products": [{
+			"productName": "Oil",
+			"productCategory": "A",
+			"rate": 50.55
+		},
+		{
+			"productName": "Milk",
+			"productCategory": "B",
+			"rate": 20.3
+		},
+		{
+			"productName": "suger",
+			"productCategory": "C",
+			"rate": 10.8
+		}
+	]
 }
 
-GET method to get bill by given id /getBillByid/{id}
+GET method : for get bill by id.
+URL : http://localhost:8080/billing/getBillById/{id}
+
+GET method : for get all bills
+URL : http://localhost:8080/billing/getBills
+
+DELETE method : remove all bills
+URL : http://localhost:8080/billing/removeAllBills
+
